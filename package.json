@@ -1,6 +1,6 @@
 {
   "name": "vente",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "`Promise`-based functions for waiting around.",
   "main": "index.js",
   "author": "robin@pettersen.dev",
@@ -8,5 +8,10 @@
   "repository": {
     "type" : "git",
     "url" : "https://github.com/ctrl-alt-null/vente"
-  }
+  },
+  "keywords": [
+    "promise",
+    "delay",
+    "defer"
+  ]
 }
