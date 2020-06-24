@@ -1,17 +1,37 @@
 {
   "name": "vente",
-  "version": "1.0.1",
-  "description": "`Promise`-based functions for waiting around.",
-  "main": "index.js",
-  "author": "robin@pettersen.dev",
+  "version": "2.0.0",
+  "description": "Promise-based functions for waiting around.",
+  "source": "dist/vente.module.js",
+  "module": "dist/vente.module.js",
+  "main": "src/vente.js",
+  "unpkg": "dist/vente.umd.js",
+  "author": "rob@tenk.dev",
+  "scripts": {
+    "build": "microbundle src/vente.ts -o dist/ --name vente",
+    "dev": "microbundle watch",
+    "test": "mocha -r ts-node/register test/**/*.test.ts"
+  },
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/ctrl-alt-null/vente"
+    "type": "git",
+    "url": "https://github.com/progging/vente"
   },
+  "homepage": "https://github.com/progging/vente",
   "keywords": [
     "promise",
     "delay",
     "defer"
-  ]
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "microbundle": "^0.12.2",
+    "mocha": "^8.0.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
 }

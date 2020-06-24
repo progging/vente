@@ -1,0 +1,21 @@
+name: Publish to NPM
+on:
+  release:
+    types: [published]
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+      - run: npm build
+      - run: npm publish --non-interactive # Will fail if version is not bumped, and this is fine.
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
