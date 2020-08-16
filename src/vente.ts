@@ -20,7 +20,8 @@ type PendingPromise = {
  * @returns {PendingPromise} A wrapped object with access to the Promise itself, and the resolver and rejecter functions.
  */
 export const pending = (): PendingPromise => {
-  let resolve: () => void, reject: () => void
+  let resolve: () => void = () => {},
+    reject: () => void = () => {}
 
   const promise = new Promise((res, rej) => {
     resolve = res

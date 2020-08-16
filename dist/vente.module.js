@@ -1,2 +1,2 @@
-var e=function(e){return new Promise(function(r){return setTimeout(r,e)})},r=function(){var e,r;return{promise:new Promise(function(n,t){e=n,r=t}),resolve:e,reject:r}};export{r as pending,e as wait};
+var n=function(n){return new Promise(function(e){return setTimeout(e,n)})},e=function(){var n=function(){},e=function(){};return{promise:new Promise(function(r,t){n=r,e=t}),resolve:n,reject:e}};export{e as pending,n as wait};
 //# sourceMappingURL=vente.module.js.map
