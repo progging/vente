@@ -1,6 +1,6 @@
 {
   "name": "vente",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Promise-based functions for waiting around.",
   "source": "dist/vente.module.js",
   "module": "dist/vente.module.js",
