@@ -8,7 +8,7 @@
 
 ## Usage
 
-```javascript
+```typescript
 import { wait, pending } from 'vente'
 
 //...
@@ -29,3 +29,7 @@ pendingPromise.reject().catch(() => alert('rejected!'))
 ## Test
 
 `npm i && npm t`
+
+## License
+
+MIT

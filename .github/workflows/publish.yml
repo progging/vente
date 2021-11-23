@@ -1,21 +1,60 @@
-name: Publish to NPM
+name: Publish packages
+
 on:
   release:
-    types: [published]
+    types: [created]
+
 jobs:
-  npm-publish:
-    name: npm-publish
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: 10
+          node-version: 12
+      - run: npm ci
+      - run: npm run check-types
+      - run: npm run lint
+      - run: npm test
+
+  publish-npm:
+    env:
+      tag: ${{ github.event.release.tag_name }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm run build
-      - run: npm publish --non-interactive # Will fail if version is not bumped, and this is fine.
+      - run: npm ci
+      - run: git config --global user.email "robin@foyn.io"
+      - run: git config --global user.name "Robin Foyn"
+      - run: npm version ${tag}
+      - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish-gpr:
+    env:
+      tag: ${{ github.event.release.tag_name }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@progging'
+      - run: npm ci
+      - run: git config --global user.email "robin@foyn.io"
+      - run: git config --global user.name "Robin Foyn"
+      - run: npm version ${tag}
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GPR_TOKEN}}
