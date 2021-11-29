@@ -1,4 +1,4 @@
-name: Publish packages
+name: NPM Publish
 
 on:
   release:
@@ -35,26 +35,3 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-  publish-gpr:
-    env:
-      tag: ${{ github.event.release.tag_name }}
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@progging'
-      - run: npm ci
-      - run: git config --global user.email "robin@foyn.io"
-      - run: git config --global user.name "Robin Foyn"
-      - run: npm version ${tag}
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GPR_TOKEN}}
